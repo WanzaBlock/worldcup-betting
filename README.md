@@ -1,66 +1,57 @@
-## Foundry
+# Smart Contract Engineer Home Task
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+## Overview
+This project implements a World Cup Betting system with a Reputation System on the blockchain, deployed on Base Sepolia testnet.
 
-Foundry consists of:
+## Contract
 
-- **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
-- **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
-- **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
-- **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+| Contract | Address | Network |
+|---|---|---|
+| WorldCupBetting | `0x3fb9F86DE0FB5a96a877e018133830c60337283F` | Base Sepolia |
 
-## Documentation
+## Contract Description
 
-https://book.getfoundry.sh/
+### WorldCupBetting
+Parimutuel prediction market supporting ETH and ERC20 collateral, a secondary position market, and a 2% platform fee on winning payouts.
 
-## Usage
+## Tech Stack
+- Solidity ^0.8.30
+- Foundry (forge, cast)
+- OpenZeppelin Contracts
+- Base Sepolia Testnet (Chain ID: 84532)
 
-### Build
+## Setup & Installation
 
-```shell
-$ forge build
+```bash
+git clone https://github.com/WanzaBlock/worldcup-betting.git
+cd worldcup-betting
+forge install
 ```
 
-### Test
+## Run Tests
 
-```shell
-$ forge test
+```bash
+forge test -vv
 ```
 
-### Format
+47 tests passing — covering market creation, ETH/ERC20 betting, payouts, secondary market, fee withdrawal, reentrancy protection, and fuzz testing.
 
-```shell
-$ forge fmt
+## Deployment
+
+```bash
+export PRIVATE_KEY=0xyour_private_key
+export BASE_SEPOLIA_RPC=https://sepolia.base.org
+
+forge script script/Deploy.s.sol:Deploy \
+  --rpc-url $BASE_SEPOLIA_RPC \
+  --private-key $PRIVATE_KEY \
+  --broadcast -vvv
 ```
 
-### Gas Snapshots
+## Verify on Basescan
 
-```shell
-$ forge snapshot
-```
+- [WorldCupBetting](https://sepolia.basescan.org/address/0x3fb9F86DE0FB5a96a877e018133830c60337283F)
 
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+## Notes
+- Deployed to Base Sepolia as the Ethereum Devnet equivalent
+- Contracts are linked: WorldCupBetting references ReputationSystem for score updates
